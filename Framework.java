@@ -64,7 +64,7 @@ class CRUD
 		try
 		{
 			select_query = "select * from " + table_name;
-			executeSqlQuery(select_query, 's');
+			executeSqlQuery(select_query, 'S');
 			metadata = rs.getMetaData();
 			columnCount = metadata.getColumnCount();
 			for (int i = 0; i < columnCount; i ++) 
@@ -158,7 +158,7 @@ class CRUD
 		}
 		sql_query = sql_query + ", 'A')";
 		// System.out.println(sql_query);
-		if (executeSqlQuery(sql_query, 'i') > 0)
+		if (executeSqlQuery(sql_query, 'C') > 0)
 		{
 			System.out.println("\n-- Details added successfully. --");
 		}
@@ -166,7 +166,7 @@ class CRUD
 
 	public static void read()
 	{	
-		executeSqlQuery(select_query, 's');
+		executeSqlQuery(select_query, 'S');
 		printDetails();
 	}
 
@@ -177,7 +177,7 @@ class CRUD
 		{
 			counter = 0;
 			heading = "";
-			System.out.println("");
+			System.out.println();
 			while(rs.next())
 			{
 				if(rs.getString(columnNames.size()).equals("A"))
@@ -215,7 +215,7 @@ class CRUD
 		try
 		{
 			st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			if(mode == 's')
+			if(mode == 'S')
 			{
 				rs = st.executeQuery(sql_query);
 				if(rs.next())
@@ -278,7 +278,7 @@ class CRUD
 		scan.nextLine();
 		input_id = takeStringInputFromUser("Enter " + table_name + " Id: ");
 		sql_query = "select * from " + table_name + " where " + columnNames.get(0) + " = '" + input_id + "'";
-			if (executeSqlQuery(sql_query, 's') == 1)
+			if (executeSqlQuery(sql_query, 'S') == 1)
 			{
 				if(mode == 'S')
 				{
@@ -307,7 +307,7 @@ class CRUD
 			{
 				scan.nextLine();
 				sql_query = "update " + table_name + " set " + columnNames.get(update_choice) + " = '"+ takeStringInputFromUser("Enter " + columnNames.get(update_choice) + " to update: ") + "' where " + columnNames.get(0) + " = '" + input_id + "'";
-				if (executeSqlQuery(sql_query, 'u') > 0)
+				if (executeSqlQuery(sql_query, 'U') > 0)
 				{
 					System.out.println("\n" + columnNames.get(update_choice) + " updated.");
 				}
@@ -324,7 +324,7 @@ class CRUD
 		if(search('D') == 1)
 		{
 			sql_query = "update " + table_name + " set " + columnNames.get(columnCount - 1) + " = 'I' where "+ columnNames.get(0) +" = '" + input_id + "'";
-			if (executeSqlQuery(sql_query, 'd') > 0)
+			if (executeSqlQuery(sql_query, 'D') > 0)
 			{
 				System.out.println("\n" + table_name + " details deleted.");
 			}
